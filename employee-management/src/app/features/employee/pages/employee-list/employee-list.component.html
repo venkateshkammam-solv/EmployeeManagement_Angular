@@ -1,0 +1,46 @@
+<div class="list-container">
+  <div class="header">
+    <h2>Employee List</h2>
+    <div class="actions">
+      <button class="add-btn" (click)="goToAdd()">+ Add Employee</button>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading">Loading employees...</div>
+  <div *ngIf="errorMsg" class="error">{{ errorMsg }}</div>
+
+  <table *ngIf="!loading && employees.length" class="emp-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th>Department</th>
+        <th>Role</th>
+        <th>Date of Joining</th>
+        <th>Location</th>
+        <th class="actions-col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let emp of employees">
+        <td>{{ emp.id }}</td>
+        <td>{{ emp.FullName }}</td>
+        <td>{{ emp.Email }}</td>
+        <td>{{ emp.Department }}</td>
+        <td>{{ emp.Role }}</td>
+        <td>{{ emp.DateOfJoining | date:'mediumDate' }}</td>
+        <td>{{ emp.Location }}</td>
+        <td class="actions-col">
+          <button class="btn delete" (click)="onDeleteClicked(emp.id)">Delete</button>
+          <button class="btn edit" (click)="router.navigate(['/employee/edit', emp.id])">Update</button>
+          <button class="btn view" (click)="router.navigate(['/employee/view', emp.id])">View</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="!loading && employees.length === 0" class="no-records">
+    No employees found.
+  </p>
+</div>

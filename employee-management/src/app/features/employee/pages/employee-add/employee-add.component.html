@@ -1,0 +1,136 @@
+<div class="add-employee-container">
+  <div class="form-card">
+
+    <h2>Add New Employee</h2>
+    <p class="subtitle">Enter employee details below</p>
+
+    <form [formGroup]="employeeForm" (ngSubmit)="submitForm()">
+
+      <div class="form-grid">
+        <div class="form-field">
+          <label>Full Name</label>
+          <input type="text" formControlName="fullName" placeholder="John Doe" />
+          <div class="error"
+               *ngIf="employeeForm.get('fullName')?.invalid &&
+                      (employeeForm.get('fullName')?.touched || employeeForm.get('fullName')?.dirty)">
+            <span *ngIf="employeeForm.get('fullName')?.errors?.['required']">
+              Full Name is required
+            </span>
+            <span *ngIf="employeeForm.get('fullName')?.errors?.['maxlength']">
+              Maximum 100 characters allowed
+            </span>
+            <span *ngIf="employeeForm.get('fullName')?.errors?.['pattern']">
+              Only alphabets are allowed
+            </span>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>Email</label>
+          <input type="email" formControlName="email" placeholder="john@example.com" />
+
+          <div class="error"
+               *ngIf="employeeForm.get('email')?.invalid &&
+                      (employeeForm.get('email')?.touched || employeeForm.get('email')?.dirty)">
+            <span *ngIf="employeeForm.get('email')?.errors?.['required']">
+              Email is required
+            </span>
+            <span *ngIf="employeeForm.get('email')?.errors?.['email']">
+              Invalid email address
+            </span>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>Phone Number</label>
+          <input type="text" formControlName="phoneNumber" placeholder="+91 XXXXXXXXXX" />
+
+          <div class="error"
+               *ngIf="employeeForm.get('phoneNumber')?.invalid &&
+                      (employeeForm.get('phoneNumber')?.touched || employeeForm.get('phoneNumber')?.dirty)">
+            <span *ngIf="employeeForm.get('phoneNumber')?.errors?.['required']">
+              Phone Number is required
+            </span>
+            <span *ngIf="employeeForm.get('phoneNumber')?.errors?.['pattern']">
+              Must be a 10-digit number
+            </span>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>Department</label>
+          <input type="text" formControlName="department" placeholder="Engineering" />
+          <div class="error" *ngIf="employeeForm.get('department')?.touched && employeeForm.get('department')?.invalid">
+        <small *ngIf="employeeForm.get('department')?.errors?.['required']">Department is required.</small>
+      </div>
+        </div>
+
+        <div class="form-field">
+          <label>Role</label>
+          <input type="text" formControlName="role" placeholder="Software Developer" />
+           <div class="error" *ngIf="employeeForm.get('role')?.touched && employeeForm.get('role')?.invalid">
+        <small *ngIf="employeeForm.get('role')?.errors?.['required']">Role is required.</small>
+      </div>
+        </div>
+
+        <div class="form-field">
+          <label>Date of Birth</label>
+          <input type="date" formControlName="DateOfBirth" />
+          <div class="error"
+               *ngIf="employeeForm.get('DateOfBirth')?.invalid &&
+                      (employeeForm.get('DateOfBirth')?.touched || employeeForm.get('DateOfBirth')?.dirty)">
+            <span *ngIf="employeeForm.get('DateOfBirth')?.errors?.['required']">
+              Date of Birth is required
+            </span>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>Age</label>
+          <input type="number" formControlName="Age" placeholder="Age" readonly />
+        </div>
+
+        <div class="form-field">
+        <label>Date of Joining</label>
+        <input type="date" formControlName="dateOfJoining" />
+        <div class="error"
+            *ngIf="employeeForm.get('dateOfJoining')?.touched &&
+                    employeeForm.get('dateOfJoining')?.invalid">
+            <span *ngIf="employeeForm.get('dateOfJoining')?.errors?.['required']">
+            Date of Joining is required
+            </span>
+        </div>
+        </div>
+
+        <div class="form-field">
+          <label>Employment Type</label>
+          <input type="text" formControlName="employmentType" placeholder="Full-Time / Contract" />
+          <div class="error" *ngIf="employeeForm.get('employmentType')?.touched && employeeForm.get('employmentType')?.invalid">
+        <small *ngIf="employeeForm.get('employmentType')?.errors?.['required']">Employment Type is required.</small>
+      </div>
+        </div>
+
+        <div class="form-field">
+          <label>Reporting Manager</label>
+          <input type="text" formControlName="reportingManager" placeholder="Rohan Kumar" />
+           <div class="error" *ngIf="employeeForm.get('reportingManager')?.touched && employeeForm.get('reportingManager')?.invalid">
+        <small *ngIf="employeeForm.get('reportingManager')?.errors?.['required']">Reporting Manager is required.</small>
+      </div>
+        </div>
+
+        <div class="form-field">
+          <label>Location</label>
+          <input type="text" formControlName="location" placeholder="Hyderabad" />
+           <div class="error" *ngIf="employeeForm.get('location')?.touched && employeeForm.get('location')?.invalid">
+        <small *ngIf="employeeForm.get('location')?.errors?.['required']">location is required.</small>
+      </div>
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="isSubmitting || employeeForm.invalid" class="submit-btn">
+        {{ isSubmitting ? 'Saving…' : 'Add Employee' }}
+      </button>
+
+    </form>
+  </div>
+</div>
