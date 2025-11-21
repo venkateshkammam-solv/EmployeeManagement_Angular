@@ -32,9 +32,15 @@
         <td>{{ emp.DateOfJoining | date:'mediumDate' }}</td>
         <td>{{ emp.Location }}</td>
         <td class="actions-col">
-          <button class="btn delete" (click)="onDeleteClicked(emp.id)">Delete</button>
-          <button class="btn edit" (click)="router.navigate(['/employee/edit', emp.id])">Update</button>
-          <button class="btn view" (click)="router.navigate(['/employee/view', emp.id])">View</button>
+          <button class="btn delete" (click)="onDeleteClicked(emp.id)" title="Delete">
+            <span class="material-icons">delete</span>
+          </button>
+          <button class="btn edit" (click)="router.navigate(['/employee/edit', emp.id])" title="Edit">
+            <span class="material-icons">edit</span>
+          </button>
+          <button class="btn view" (click)="router.navigate(['/employee/view', emp.id])" title="View">
+            <span class="material-icons">visibility</span>
+          </button>
         </td>
       </tr>
     </tbody>
