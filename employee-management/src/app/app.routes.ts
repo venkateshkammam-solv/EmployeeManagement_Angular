@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { EmployeeAddComponent } from './features/employee/pages/employee-add/employee-add.component';
 import { EmployeeEditComponent } from './features/employee/pages/employee-edit/employee-edit.component';
+import { UploadComponent } from './features/employee/pages/upload/upload.component';
 export const routes: Routes = [
    {
     path: '',
@@ -29,4 +30,8 @@ export const routes: Routes = [
     component: EmployeeEditComponent,
     data: { isReadonly: true }
   },
+  {
+    path: 'employee/documentverification',
+    component: UploadComponent,
+  }
 ];

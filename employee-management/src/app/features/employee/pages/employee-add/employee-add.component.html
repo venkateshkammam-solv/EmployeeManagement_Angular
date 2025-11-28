@@ -3,7 +3,11 @@
 
     <h2>Add New Employee</h2>
     <p class="subtitle">Enter employee details below</p>
-
+     <div class="server-error" *ngIf="errorMessage.length > 0">
+      <ul>
+        <li *ngFor="let msg of errorMessage">{{ msg }}</li>
+      </ul>
+     </div>
     <form [formGroup]="employeeForm" (ngSubmit)="submitForm()">
 
       <div class="form-grid">

@@ -101,6 +101,15 @@ input[type="date"]::-webkit-datetime-edit {
   transition: color 0.3s;
 }
 
+.server-error {
+  background: #ffe5e5;
+  color: #c30000;
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  font-size: 15px;
+  font-weight: 500;
+}
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }

@@ -17,6 +17,7 @@ export class EmployeeAddComponent {
 
   employeeForm!: FormGroup;
   isSubmitting = false;
+  errorMessage: string[] = []  // storing backend errors
 
   constructor(
     private fb: FormBuilder,
@@ -26,40 +27,13 @@ export class EmployeeAddComponent {
 
     this.employeeForm = this.fb.group({
       id: [''],
-
-      fullName: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(/^[A-Za-z ]+$/),
-          Validators.maxLength(100)
-        ]
-      ],
-
-      email: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$/)
-        ]
-      ],
-
-      phoneNumber: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(/^(\+91[\s]?)?[0-9]{10}$/)
-        ]
-      ],
-
+      fullName: ['', [Validators.required, Validators.pattern(/^[A-Za-z ]+$/), Validators.maxLength(100)]],
+      email: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$/)]],
+      phoneNumber: ['', [Validators.required, Validators.pattern(/^(\+91[\s]?)?[0-9]{10}$/)]],
       department: ['', Validators.required],
-
       role: ['', Validators.required],
-
       DateOfBirth: ['', Validators.required],
-
-      Age: [{ value: '', disabled: true }],   
-
+      Age: [{ value: '', disabled: true }],
       dateOfJoining: ['', Validators.required],
       employmentType: ['', Validators.required],
       reportingManager: ['', Validators.required],
@@ -80,18 +54,26 @@ export class EmployeeAddComponent {
       return;
     }
 
-    const request: AddEmployeeRequest = this.employeeForm.getRawValue(); // includes disabled fields
+    const request: AddEmployeeRequest = this.employeeForm.getRawValue();
 
     this.isSubmitting = true;
+    this.errorMessage = []; 
 
     this.employeeService.addEmployee(request).subscribe({
       next: () => {
+        this.isSubmitting = false;
         alert('Employee added successfully!');
         this.router.navigate(['/employees']);
       },
-      error: () => {
-        alert('Failed to add employee');
+      error: (err) => {
         this.isSubmitting = false;
+
+        if (err.status === 409) {
+          this.errorMessage = err.error.errors;
+          ; 
+        } else {
+          this.errorMessage = ["Failed to add employee. Please try again!"];
+        }
       }
     });
   }

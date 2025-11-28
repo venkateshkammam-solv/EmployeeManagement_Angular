@@ -1,0 +1,87 @@
+<div class="upload-container">
+  <h2>Upload Employee Document</h2>
+  <p class="subtitle">Attach document & fill required details</p>
+
+  <form>
+    <div class="form-grid">
+     <div class="form-field">
+        <label>Employee Id <span class="req">*</span></label>
+        <input type="string" [(ngModel)]="employeeId" name="employeeId" />
+      </div>
+      <div class="form-field">
+        <label>Document Type <span class="req">*</span></label>
+        <select [(ngModel)]="documentType" name="documentType" required>
+          <option value="" disabled selected>Select Document Type</option>
+          <option value="Bank Statement">Bank Statement</option>
+          <option value="ID Proof">ID Proof</option>
+          <option value="PAN Card">PAN Card</option>
+          <option value="Aadhaar Card">Aadhaar Card</option>
+          <option value="Resume">Resume</option>
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label>Department</label>
+        <select [(ngModel)]="department" name="department">
+          <option value="" disabled selected>Select Department</option>
+          <option>HR</option>
+          <option>Finance</option>
+          <option>IT</option>
+          <option>Admin</option>
+          <option>Operations</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label>Email</label>
+        <input type="email" [(ngModel)]="email" name="email" />
+      </div>
+      <div class="form-field">
+        <label>Employee Name</label>
+        <input type="name" [(ngModel)]="employeeName" name="employeeName" />
+      </div>
+
+      <!-- <div class="form-field">
+        <label>Effective Date</label>
+        <input type="date" [(ngModel)]="effectiveDate" name="effectiveDate" />
+      </div> -->
+
+      <div class="form-field full-width">
+        <label>Description</label>
+        <textarea [(ngModel)]="description" name="description" rows="3" placeholder="Add notes here..."></textarea>
+      </div>
+    </div>
+
+    <!-- Upload Box -->
+    <div class="file-upload" (click)="fileInput.click()">
+      <input type="file" #fileInput hidden (change)="onFileSelected($event)" />
+      <div class="icon material-icons">cloud_upload</div>
+      <h3>Click to Upload</h3>
+      <p>or drag and drop here</p>
+    </div>
+
+    <!-- File Info -->
+    <div class="file-info" *ngIf="selectedFile">
+      <p class="file-name">{{ selectedFile.name }}</p>
+      <p class="file-size">({{ selectedFile.size / 1024 | number:'1.0-0' }} KB)</p>
+      <button type="button" class="remove-btn" (click)="removeFile()">Remove File</button>
+    </div>
+
+    <!-- Buttons -->
+    <div class="button-row">
+      <button type="button" class="clear-btn" (click)="removeFile()" [disabled]="!selectedFile">Clear</button>
+
+      <button type="button"
+        class="primary-btn"
+        [disabled]="!selectedFile || !documentType || isUploading"
+        (click)="upload()">
+
+        <ng-container *ngIf="!isUploading">Upload</ng-container>
+        <ng-container *ngIf="isUploading">Uploading...</ng-container>
+      </button>
+    </div>
+
+    <!-- Status Message -->
+    <div class="status success" *ngIf="status === 'success'">Upload Successful!</div>
+    <div class="status error" *ngIf="status === 'error'">Upload Failed. Try Again.</div>
+  </form>
+</div>
